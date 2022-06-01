@@ -14,6 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Type {
+    private int id;
     private String name;
     private String image;
 }

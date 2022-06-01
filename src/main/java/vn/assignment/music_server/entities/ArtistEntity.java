@@ -18,7 +18,5 @@ public class ArtistEntity {
     private String image;
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "artistId", referencedColumnName = "id")
-    private List<AlbumEntity> listAlbum;
+
 }

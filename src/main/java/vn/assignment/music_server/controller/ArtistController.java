@@ -19,6 +19,7 @@ public class ArtistController {
     private final ArtistService artistService;
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
+
     public List<Artist> findAll(){
         return artistService.findALl();
     }

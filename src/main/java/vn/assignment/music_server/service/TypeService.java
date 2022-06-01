@@ -34,6 +34,7 @@ public class TypeService {
 
     private Type mapToTypeModel(TypeEntity typeEntity) {
         return Type.builder()
+                .id(typeEntity.getId())
                 .name(typeEntity.getName())
                 .image(typeEntity.getImage())
                 .build();

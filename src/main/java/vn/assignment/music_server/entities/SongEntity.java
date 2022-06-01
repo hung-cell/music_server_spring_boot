@@ -17,6 +17,6 @@ public class SongEntity {
     private String url;
     private String image;
     private String artist;
-
+    private int views;
 
 }

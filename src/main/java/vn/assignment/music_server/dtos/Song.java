@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Song {
-
+    private int id;
     private String song;
     private String url;
     private String image;
     private String artist;
+    private int views;
 }

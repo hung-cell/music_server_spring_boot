@@ -2,6 +2,8 @@ package vn.assignment.music_server.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import vn.assignment.music_server.dtos.Song;
 import vn.assignment.music_server.entities.SongEntity;
@@ -9,6 +11,7 @@ import vn.assignment.music_server.repositories.SongRepositories;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +46,11 @@ public class SongService {
         List<Song> listSong = changeSongEntitiesToResponse(list);
         return listSong;
     }
+    public List<Song> top10MostViewSong(){
+        List<SongEntity> list =songRepositories.top10Song();
+
+        return changeSongEntitiesToResponse( list);
+    }
     private List<Song> changeSongEntitiesToResponse(List<SongEntity> list) {
         List<Song> listSong = new ArrayList<>();
         for (SongEntity s : list) {
@@ -69,10 +77,25 @@ public class SongService {
 
 
         return Song.builder()
+                .id(songEntity.getId())
                 .song(songEntity.getSong())
                 .url(songEntity.getUrl())
                 .image(songEntity.getImage())
                 .artist(artistName)
+                .views(songEntity.getViews())
                 .build();
     }
+
+    public Song findById(int id) {
+        Optional<SongEntity> s =songRepositories.findById(id);
+        if(s.isPresent()){
+            List<String> listArtistName = songRepositories.
+                    findArtistNameBySongId(s.get().getId());
+            Song sTemp = mapToSongModel(s.get(), listArtistName);
+            return sTemp;
+        }
+        else  return null;
+    }
+
+
 }

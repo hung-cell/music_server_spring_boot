@@ -1,5 +1,7 @@
 package vn.assignment.music_server.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import vn.assignment.music_server.dtos.Song;
@@ -7,7 +9,7 @@ import vn.assignment.music_server.entities.SongEntity;
 
 import java.util.List;
 
-public interface SongRepositories extends JpaRepository<SongEntity,Long> {
+public interface SongRepositories extends JpaRepository<SongEntity,Integer> {
     @Query( "SELECT a.name FROM ArtistEntity a " +
             "INNER JOIN ArtistOfSong aos ON a.id = aos.artistEntity.id " +
             "INNER JOIN SongEntity s ON s.id = aos.songEntity.id " +
@@ -35,5 +37,9 @@ public interface SongRepositories extends JpaRepository<SongEntity,Long> {
             "INNER JOIN ArtistEntity a ON a.id = aos.artistEntity.id " +
             "WHERE a.name LIKE  %:key% ")
     List<SongEntity> findSongEntitiesByArtistName(String key);
+    @Query(
+            value = "SELECT * FROM songs s Order by views DESC LIMIT 10",
+            nativeQuery = true)
+    List<SongEntity> top10Song();
 
 }

@@ -14,11 +14,14 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String userName;
+    private String email;
     private String password;
     private String image;
+    private String uid;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private List<PlayListEntity> listPlayList;
+    public UserEntity(String email, String uid) {
+        this.email = email;
+        this.uid = uid;
+    }
+
 }

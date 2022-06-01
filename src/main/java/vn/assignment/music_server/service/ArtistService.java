@@ -34,6 +34,7 @@ public class ArtistService {
 
     private Artist mapToArtistModel(ArtistEntity artistEntity) {
         return Artist.builder()
+                .id(artistEntity.getId())
                 .name(artistEntity.getName())
                 .description(artistEntity.getDescription())
                 .image(artistEntity.getImage())
